@@ -41,7 +41,8 @@ public abstract class Core
     {
         Data data_tmp=new Data(source,in,out);
         INPUT=data_tmp.getInputs();
-        OUTPUT=data_tmp.getOutputs();
+        OUTPUT=data_tmp.getOutputs(); 
+        sizeOut = OUTPUT==null? 0:OUTPUT[0].length;  
     }
     public final void saveMemory(String FILENAME) 
     {  

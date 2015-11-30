@@ -31,24 +31,28 @@ public class Main
         IADiccinary.testear();
         IADiccinary.saveMemory(FILENAME);
         IADiccinary.cerrar();
-                
+       /*         
         Generador test= new Generador();
         test.entrenar(0.000001);
         test.testear();
         test.cerrar();
-     */   
+     */
         Generador test= new Generador();
-        test.cargarArchivo("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\file_test1.txt"," - Lina Maria:"," - Jhordy Ar: ");
+       // test.cargarArchivo("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\file_test1.txt"," - Lina Maria:"," - Jhordy Ar: ");
         test.entrenar(0.000001);        
         test.testear();
         test.cerrar();
-        /*
-        Data d= new Data("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\file_test1.txt"," - Lina Maria:"," - Jhordy Ar: ");
-        for(double u[]:d.getOutputs())
-        {    
-            System.out.println(double_toWord(arrayBinarioDecimal(u)));            
-        }*/
         
+        
+        Data d= new Data("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\file_test1.txt"," - Lina Maria:"," - Jhordy Ar: ");
+        
+        double[][] u=d.getOutputs();
+        double[][] t=d.getInputs();
+         for(int i=0;i<u.length;i++)
+        {    
+            System.out.println(double_toWord(arrayBinarioDecimal(t[i])));
+            System.out.println(double_toWord(arrayBinarioDecimal(u[i])));            
+        }        
     }
 }
     
