@@ -22,8 +22,8 @@ public class Data
 {
     File archivo;
     boolean buffering = true;
-    double [][] inputs=new double[500][350];
-    double [][] outputs=new double[500][350];
+    double [][] inputs=new double[5][350];
+    double [][] outputs=new double[5][350];
     int length=0;
     String in,out,buffer;
     public Data(String source,String in,String out)
