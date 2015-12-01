@@ -52,8 +52,7 @@ public class Main
         {    
             System.out.println("User: "+double_toWord(arrayBinarioDecimal(t[i])));
             System.out.println("Exce: "+double_toWord(arrayBinarioDecimal(u[i])));            
-        }    
-        
+        }             
     }
 }
     

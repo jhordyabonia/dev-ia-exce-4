@@ -22,12 +22,16 @@ public class Data
 {
     File archivo;
     boolean buffering = true;
+    private int EXCE=0,USER=1;
+    private int LAST_SENDER=EXCE;
     double [][] inputs=new double[10][350];//numero exacto de msj con lina 7694
     double [][] outputs=new double[10][350];
     int length=0;
-    String in,out,buffer;
+    String in,out,buffer,buffer_in,buffer_out;
     public Data(String source,String in,String out)
     {
+        buffer_in="";
+        buffer_out="";
         buffer="";
         this.in=in;
         this.out=out;
@@ -41,36 +45,37 @@ public class Data
     private void hacerInfoUsable(String data)
     {       
           if(length>=inputs.length)return;
-          int pivot=0;
           int start=data.indexOf(in);
           int end=data.indexOf(out);
-          if(start>end)
-          { int tmp=start; start=end; end=tmp; pivot=1; buffering=!buffering;}
+          boolean  exce=!(start>end);
+          end=start>end? start:end;
           end=end>data.length()? data.length()-1 : end;
           end=end<0? 0 : end;
-          if(pivot==1)
-          {
-             ///User
-             buffer+=data.substring(end).replace(in, "");
-             // System.out.println(data.substring(end).replace(in, "User: "));
-          }
-          else 
-          {
-              //Exce
-              buffer+=data.substring(end).replace(out, "");
-              //System.out.println(data.substring(end).replace(out, "Exce: "));             
-          }
           
-          if(!buffering)
-          {
-              if(pivot==1)
-                  inputs[length]=completar(buffer.toUpperCase());
+          if(!exce)
+          { 
+              if(LAST_SENDER==USER)
+              { buffer+=data.substring(end).replace(in, "");}
               else
-                  outputs[length]=completar(buffer.toUpperCase());
+              {  
+                  inputs[length]=completar(buffer.toUpperCase());
+                  buffer=data.substring(end).replace(in, "");
+              }
               
-              buffer="";
+              LAST_SENDER=USER;          
+           }
+          else 
+          {              
+              if(LAST_SENDER==EXCE)
+              { buffer+=data.substring(end).replace(out, ""); }
+              else
+              {
+                  outputs[length]=completar(buffer.toUpperCase()); 
+                  buffer=data.substring(end).replace(out, "");
+              }
+              LAST_SENDER=EXCE; 
               length++;
-          }
+          }          
              
     }
     private void  muestraContenido(String archivo) throws FileNotFoundException, IOException 
