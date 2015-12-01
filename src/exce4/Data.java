@@ -22,8 +22,8 @@ public class Data
 {
     File archivo;
     boolean buffering = true;
-    double [][] inputs=new double[50][350];
-    double [][] outputs=new double[50][350];
+    double [][] inputs=new double[10][350];//numero exacto de msj con lina 7694
+    double [][] outputs=new double[10][350];
     int length=0;
     String in,out,buffer;
     public Data(String source,String in,String out)
