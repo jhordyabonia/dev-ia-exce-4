@@ -9,6 +9,7 @@ import static exce4.Language.arrayBinarioDecimal;
 import static exce4.Language.completar;
 import static exce4.Language.double_toWord;
 import java.io.File;
+import java.util.Scanner;
 import org.encog.Encog;
 import org.encog.ml.data.MLData;
 import org.encog.ml.data.MLDataPair;
@@ -82,7 +83,7 @@ public abstract class Core
         //System.out.println(double_toWord(unNormaliceDecimal(tmp)));
     }
     }
-    public void usar(String t)
+    public void usar_(String t)
     {
         System.out.println("Exce responce:");
         double[][] in_pre={completar(t)};
@@ -90,13 +91,23 @@ public abstract class Core
          for (MLDataPair pair:in )
          {
             final MLData output = network.compute(pair.getInput());
-            double tmp[]=new double[140];
-            for(int u=0;u<140;u++)
+            double tmp[]=new double[sizeOut];
+            for(int u=0;u<sizeOut;u++)
             {
                 tmp[u]=output.getData(u);
             }
             System.out.println(":> "+double_toWord(arrayBinarioDecimal(tmp)));
          }
+    }
+    public void usar(String stop)
+    {
+        Scanner teclado = new Scanner(System.in);
+        String cadena="";
+        while(!cadena.equals(stop))
+        {
+            cadena =teclado.nextLine();
+            usar_(cadena);            
+        }
     }
     public void cerrar()
     {

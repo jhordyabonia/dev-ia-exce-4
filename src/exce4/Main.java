@@ -20,39 +20,38 @@ public class Main
     private static final String FILENAME="MEMORY";
     
     public static void main ( final String args[] ) throws SQLException
-    {  
-       
-    /* 
+    {         
+    
         WordNormalizer IADiccinary=new WordNormalizer();
         
         IADiccinary.loadWords(500,"select * from exce.palabras where 'id'<500");
-        IADiccinary.loadMemory(FILENAME);
+        //IADiccinary.loadMemory(FILENAME);
         IADiccinary.entrenar(0.001);
         IADiccinary.testear();
-        IADiccinary.saveMemory(FILENAME);
+       // IADiccinary.saveMemory(FILENAME);
         IADiccinary.cerrar();
-       /*         
+       /*       
         Generador test= new Generador();
         test.entrenar(0.000001);
         test.testear();
         test.cerrar();
-     /*
-        Generador test= new Generador();
-        test.cargarArchivo("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\saludos.txt"," - Lina Maria:"," - Jhordy Ar: ");
-        test.entrenar(0.000001);        
-        test.testear();
-        test.cerrar();
+        */     
+        //Generador test= new Generador();
+        //test.cargarArchivo("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\quien.txt"," - Lina Maria:"," - Jhordy Ar: ");
+        //test.entrenar(0.001);        
+        //test.testear();     
+        //test.usar("EXIT");
+       // test.cerrar();
+        /*
+        Data d= new Data("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\QUIEN.txt"," - Lina Maria:"," - Jhordy Ar: ");
         
+        for(double[] t:d.getInputs())
+            System.out.println(double_toWord(arrayBinarioDecimal(t)));
+        System.out.println('\n');
+        for(double[] t:d.getOutputs())
+            System.out.println(double_toWord(arrayBinarioDecimal(t)));
         */
-        Data d= new Data("C:\\AppServ\\www\\new\\develop\\res\\exce 0.4\\saludos.txt"," - Lina Maria:"," - Jhordy Ar: ");
-        
-        double[][] u=d.getOutputs();
-        double[][] t=d.getInputs();
-         for(int i=0;i<u.length;i++)
-        {    
-            System.out.println("User: "+double_toWord(arrayBinarioDecimal(t[i])));
-            System.out.println("Exce: "+double_toWord(arrayBinarioDecimal(u[i])));            
-        }             
+                
     }
 }
     

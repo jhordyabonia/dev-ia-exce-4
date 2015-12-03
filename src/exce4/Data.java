@@ -28,13 +28,13 @@ public class Data
     double [][] outputs=new double[10][350];
     int length=0;
     String in,out,buffer,buffer_in,buffer_out;
-    public Data(String source,String in,String out)
+    public Data(String source,String in1,String in2)
     {
         buffer_in="";
         buffer_out="";
         buffer="";
-        this.in=in;
-        this.out=out;
+        this.in=in2;
+        this.out=in1;
         try {
             muestraContenido(source);
         } catch (IOException ex) {
@@ -53,39 +53,38 @@ public class Data
           end=end<0? 0 : end;
           
           if(!exce)
-          { 
+          {           
               if(LAST_SENDER==USER)
-              { buffer+=data.substring(end).replace(in, "");}
+              { buffer+="\n"+data.substring(end).replace(in, "");}
               else
               {  
                   inputs[length]=completar(buffer.toUpperCase());
                   buffer=data.substring(end).replace(in, "");
-              }
-              
-              LAST_SENDER=USER;          
+              }              
+              LAST_SENDER=USER;             
            }
           else 
-          {              
+          {       
               if(LAST_SENDER==EXCE)
-              { buffer+=data.substring(end).replace(out, ""); }
+              { buffer+="\n"+data.substring(end).replace(out, ""); }
               else
               {
                   outputs[length]=completar(buffer.toUpperCase()); 
                   buffer=data.substring(end).replace(out, "");
               }
               LAST_SENDER=EXCE; 
-              length++;
+              length++;        
           }          
-             
     }
     private void  muestraContenido(String archivo) throws FileNotFoundException, IOException 
     {
       String cadena;
       FileReader f = new FileReader(archivo);
-      BufferedReader b = new BufferedReader(f);
-      while((cadena = b.readLine())!=null) 
-      { hacerInfoUsable(cadena); }
-      b.close();
+        try (BufferedReader b = new BufferedReader(f))
+        {
+            while((cadena = b.readLine())!=null)
+            { hacerInfoUsable(cadena); }
+        }
     }
     public double[][] getInputs()
     {
