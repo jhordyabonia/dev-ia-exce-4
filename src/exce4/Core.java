@@ -53,6 +53,22 @@ public abstract class Core
     { 
       network = (BasicNetwork)EncogDirectoryPersistence .loadObject( new File(FILENAME)); 
     }
+    public final static Core load(String FILENAME) 
+    { 
+       Core tmp= new Core() {
+
+           @Override
+           protected BasicNetwork make()
+           {  return (BasicNetwork)EncogDirectoryPersistence .loadObject( new File(FILENAME));  }
+
+           @Override
+           protected double[][] setInput() {return null;}
+
+           @Override
+           protected double[][] setOutput() {return null;}
+       };
+        return tmp;
+    }
     public void entrenar(double minErr)
     {
      trainingSet = new BasicMLDataSet (INPUT, OUTPUT);

@@ -24,11 +24,11 @@ public class Main
     
         WordNormalizer IADiccinary=new WordNormalizer();
         
-        IADiccinary.loadWords(500,"select * from exce.palabras where 'id'<500");
+        IADiccinary.loadWords(5,"select * from exce.palabras where 'id'<5");
         //IADiccinary.loadMemory(FILENAME);
         IADiccinary.entrenar(0.001);
         IADiccinary.testear();
-       // IADiccinary.saveMemory(FILENAME);
+       // IADiccinary.saveMemory("item_Generator");
         IADiccinary.cerrar();
        /*       
         Generador test= new Generador();
