@@ -86,6 +86,54 @@ public class Data
             { hacerInfoUsable(cadena); }
         }
     }
+    
+    
+    public Data()
+    {    
+        buffer_in="";
+        buffer_out="";
+        buffer="";
+        in="";
+        out="";
+    }
+    public void insertar_archivo(String source)
+    {
+        buffer_in="";
+        buffer_out="";
+        buffer="";
+        this.in="";
+        this.out="";
+        try {
+            leer_archivo(source);
+        } catch (IOException ex) {
+            Logger.getLogger(Data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     private void  leer_archivo(String archivo) throws FileNotFoundException, IOException 
+    {
+      String cadena;
+      FileReader f = new FileReader(archivo);
+        try (BufferedReader b = new BufferedReader(f))
+        {
+            while((cadena = b.readLine())!=null)
+            { insertar_palabras(cadena); }
+        }
+    }     
+    private void insertar_palabras(String data)
+    {
+        String[] tmp=data.split(" ");
+              
+        for(String t:tmp)
+        {
+            String sql="INSERT INTO `exce`.`palabras2` VALUES (NULL, \""+Language.eliminar_puntuacion(t.toLowerCase())+"\")";
+            ConnectionExce conn=new ConnectionExce();
+            if(conn.connect(null, null, null))
+                conn.queryInsert(sql);
+            
+        }
+        System.out.println(data);            
+    }
+    
     public double[][] getInputs()
     {
         return inputs;        

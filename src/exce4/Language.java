@@ -14,12 +14,214 @@ import java.util.Random;
 public interface Language 
 {
     public static int BINARY_LENGTH=7;
+
+    public static String eliminar_puntuacion(String in) {
+        while (in.contains(".")) {
+            in = in.replace(".", "");
+        }
+        while (in.contains(",")) {
+            in = in.replace(",", "");
+        }
+        while (in.contains("¿")) {
+            in = in.replace("¿", "");
+        }
+        while (in.contains("¡")) {
+            in = in.replace("¡", "");
+        }
+        while (in.contains("!")) {
+            in = in.replace("!", "");
+        }
+        while (in.contains("|")) {
+            in = in.replace("|", "");
+        }
+        while (in.contains("?")) {
+            in = in.replace("?", "");
+        }
+        while (in.contains("+")) {
+            in = in.replace("+", "");
+        }
+        while (in.contains("'")) {
+            in = in.replace("'", "");
+        }
+        while (in.contains("\"")) {
+            in = in.replace("\"", "");
+        }
+        while (in.contains("(")) {
+            in = in.replace("(", "");
+        }
+        while (in.contains(")")) {
+            in = in.replace(")", "");
+        }
+        while (in.contains("1")) {
+            in = in.replace("1", "");
+        }
+        while (in.contains("2")) {
+            in = in.replace("2", "");
+        }
+        while (in.contains("3")) {
+            in = in.replace("3", "");
+        }
+        while (in.contains("4")) {
+            in = in.replace("4", "");
+        }
+        while (in.contains("5")) {
+            in = in.replace("5", "");
+        }
+        while (in.contains("6")) {
+            in = in.replace("6", "");
+        }
+        while (in.contains("7")) {
+            in = in.replace("7", "");
+        }
+        while (in.contains("8")) {
+            in = in.replace("8", "");
+        }
+        while (in.contains("9")) {
+            in = in.replace("9", "");
+        }
+        while (in.contains("0")) {
+            in = in.replace("0", "");
+        }
+        while (in.contains("-")) {
+            in = in.replace("-", "");
+        }
+        while (in.contains(":")) {
+            in = in.replace(":", "");
+        }
+        while (in.contains("<")) {
+            in = in.replace("<", "");
+        }
+        while (in.contains(">")) {
+            in = in.replace(">", "");
+        }
+        while (in.contains("+")) {
+            in = in.replace("+", "");
+        }
+        while (in.contains("*")) {
+            in = in.replace("*", "");
+        }
+        while (in.contains("&")) {
+            in = in.replace("&", "");
+        }
+        while (in.contains("$")) {
+            in = in.replace("$", "");
+        }
+        while (in.contains(";")) {
+            in = in.replace(";", "");
+        }
+        return in;
+    }
+
+    public static String error1(String i) {
+        if (i.contains("s")) {
+            return i.replace("s", "c");
+        }
+        if (i.contains("r")) {
+            return i.replace("r", "rr");
+        }
+        if (i.contains("v")) {
+            return i.replace("v", "b");
+        }
+        if (i.contains("b")) {
+            return i.replace("b", "v");
+        }
+        if (i.contains("n")) {
+            return i.replace("n", "m");
+        }
+        if (i.contains("m")) {
+            return i.replace("m", "n");
+        }
+        if (i.contains("l")) {
+            return i.replace("l", "ll");
+        }
+        if (i.contains("g")) {
+            return i.replace("g", "j");
+        }
+        if (i.contains("j")) {
+            return i.replace("j", "g");
+        }
+        if (i.contains("c")) {
+            return i.replace("c", "s");
+        }
+        if (i.contains("y")) {
+            return i.replace("y", "ll");
+        }
+        if (i.contains("ll")) {
+            return i.replace("ll", "y");
+        }
+        return "h" + i;
+    }
+
+    public static String error2(String i) {
+        if (i.endsWith("u")) {
+            return i.replace("u", "o");
+        }
+        if (i.endsWith("i")) {
+            return i.replace("i", "o");
+        }
+        if (i.contains("s")) {
+            return i.replace("s", "a");
+        }
+        if (i.contains("r")) {
+            return i.replace("r", "e");
+        }
+        if (i.contains("v")) {
+            return i.replace("v", "c");
+        }
+        if (i.contains("b")) {
+            return i.replace("b", "n");
+        }
+        if (i.contains("n")) {
+            return i.replace("n", "b");
+        }
+        if (i.contains("l")) {
+            return i.replace("l", "k");
+        }
+        if (i.contains("g")) {
+            return i.replace("g", "h");
+        }
+        if (i.contains("j")) {
+            return i.replace("j", "h");
+        }
+        if (i.contains("c")) {
+            return i.replace("c", "v");
+        }
+        if (i.contains("y")) {
+            return i.replace("y", "u");
+        }
+        if (i.contains("ll")) {
+            return i.replace("ll", "l");
+        }
+        if (i.contains("mb")) {
+            return i.replace("mb", "nv");
+        }
+        if (i.startsWith("a")) {
+            return "h" + i;
+        }
+        if (i.startsWith("i")) {
+            return "h" + i;
+        }
+        if (i.startsWith("x")) {
+            return i.replace("x", "c");
+        }
+        return  i+i.charAt(i.length()-1);
+    }
     
-    String ALPHA[]={" "," "," ","A","A","A","B","B","B","C","C","C","D","D","D","E","E",
-        "E","F","F","F","G","G","G","H","H","H","J","J","J","I","I","I","K","K",
-        "K","L","L","L","M","M","M","N","N","N","O","O","O","P","P","P","Q","Q",
-        "Q","R","R","R","S","S","S","T","T","T","U","U","U","V","V","V","W","W",
-        "X","X","X","Y","Y","Y","Z","Z","Z"};
+    public static String error3(String i) 
+    {
+        if(!i.endsWith("s")||!i.endsWith("r"))
+            if(i.length()>2)
+                return i.substring(0,i.length()-1);
+        Random rnd = new Random();
+        int p=(int)rnd.nextDouble()*i.length();
+        return i.replace(""+i.charAt(p),"");
+    }
+    String ALPHA[]={" "," "," ","A","A","A","B","B","B","C","C","C","D","D","D",
+        "E","E","E","F","F","F","G","G","G","H","H","H","I","I","I","J","J","J",
+        "K","K","K","L","L","L","M","M","M","N","N","N","Ñ","Ñ","Ñ","O","O","O",
+        "P","P","P","Q","Q","Q","R","R","R","S","S","S","T","T","T","U","U","U",
+        "V","V","V","W","W","X","X","X","Y","Y","Y","Z","Z","Z","Á","Á","Á","É",
+        "É","É","Ó","Ó","Ó","Í","Í","Í","Ú","Ú","Ú","Ü","Ü","Ü","?","?","?"};
     
    public static double[] normaliceDecimal(double t[])
    {
@@ -65,7 +267,7 @@ public interface Language
        double out[]=new double[t!=null?(int)(t.length/BINARY_LENGTH):0];
        double tmp[][]=new double[t!=null?(int)(t.length/BINARY_LENGTH):0][BINARY_LENGTH];
        
-       for(int i=0,x=0;i<(int)t.length/BINARY_LENGTH;i++)
+       for(int i=0,x=0;i<(int)(t.length/BINARY_LENGTH);i++)
         for(int a=0;a<BINARY_LENGTH;a++,x++)
             tmp[i][a]=t[x];
        
@@ -76,17 +278,21 @@ public interface Language
        return out;       
    }
     public static double[] decimalBinario(double t)
+    { return decimalBinario(t,0); }
+    public static double[] decimalBinario(double t,int b)
     {
-        double out[]=new double[BINARY_LENGTH];
+        int B=b;
+        if(B==0)B=BINARY_LENGTH;
+        double out[]=new double[B];
         int i;
-        for(i=0;t>0&&i<BINARY_LENGTH;i++)
+        for(i=0;t>0&&i<B;i++)
         {
             out[i]=t%2;
             if(out[i]==0) t=t/2;
             else t=(t-1)/2;
         }
         //out[i]=t;
-        for(i=i;i<BINARY_LENGTH;i++){out[i]=0;}
+        for(i=i;i<B;i++){out[i]=0;}
         
         return out;
     }public static double binarioDecimal(double t[])
@@ -134,6 +340,7 @@ public interface Language
     }
     public static double[] word_toDouble(String word)
     {
+        word=word.toUpperCase();
         double[] out=new double[word.length()];
         for(int i=0;i<word.length();i++)
           out[i]=char_p(word.charAt(i)+"");

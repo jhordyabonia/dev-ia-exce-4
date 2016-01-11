@@ -5,6 +5,8 @@
  */
 package GUI;
 
+import GUI.Manager.TYPES;
+
 /**
  *
  * @author Inadaptado
@@ -86,8 +88,11 @@ public final class Main extends javax.swing.JFrame {
 
     private void init_user()
     {
+        managerGenerardor.setType(TYPES.GENERADOR);
         managerGenerardor.setManager("Generadores.txt");
+        
         managerWordNormalize.setManager("Normalizadores_de_palabras.txt");
+        managerWordNormalize.setType(TYPES.NORMALIZADOR);
         main_window.addTab("Generadores", managerGenerardor);
         main_window.addTab("Normalizadores de palabras", managerWordNormalize);
     }

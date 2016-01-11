@@ -31,6 +31,13 @@ public abstract class Core
     protected double[][]OUTPUT;
     protected int sizeOut;
     
+    public Core(BasicNetwork n)
+    {
+        network = n;
+        INPUT = setInput();
+        OUTPUT = setOutput();
+        sizeOut = OUTPUT==null? 0:OUTPUT[0].length; 
+    }
     public Core()
     {
         network = make();
@@ -53,24 +60,13 @@ public abstract class Core
     { 
       network = (BasicNetwork)EncogDirectoryPersistence .loadObject( new File(FILENAME)); 
     }
-    public final static Core load(String FILENAME) 
+    public final static BasicNetwork load(String FILENAME) 
     { 
-       Core tmp= new Core() {
-
-           @Override
-           protected BasicNetwork make()
-           {  return (BasicNetwork)EncogDirectoryPersistence .loadObject( new File(FILENAME));  }
-
-           @Override
-           protected double[][] setInput() {return null;}
-
-           @Override
-           protected double[][] setOutput() {return null;}
-       };
-        return tmp;
+       return (BasicNetwork)EncogDirectoryPersistence .loadObject( new File(FILENAME)); 
     }
     public void entrenar(double minErr)
     {
+     double season=1;
      trainingSet = new BasicMLDataSet (INPUT, OUTPUT);
     
     train = new ResilientPropagation(network,trainingSet);
@@ -80,6 +76,11 @@ public abstract class Core
         train.iteration() ;
         System.out.println("Epoch # "+epoch+" Error: "+train.getError( ) ) ;
         epoch++;
+        if((epoch/1000)>=season)
+        {
+            season++;
+            minErr+=0.001;
+        }
     } while (train.getError()>minErr);
     train.finishTraining();
     }
@@ -99,9 +100,9 @@ public abstract class Core
         //System.out.println(double_toWord(unNormaliceDecimal(tmp)));
     }
     }
-    public void usar_(String t)
+    public String usar_(String t)
     {
-        System.out.println("Exce responce:");
+        String out ="";
         double[][] in_pre={completar(t)};
         BasicMLDataSet in=new BasicMLDataSet (in_pre, in_pre);
          for (MLDataPair pair:in )
@@ -112,8 +113,9 @@ public abstract class Core
             {
                 tmp[u]=output.getData(u);
             }
-            System.out.println(":> "+double_toWord(arrayBinarioDecimal(tmp)));
+            out= double_toWord(arrayBinarioDecimal(tmp));
          }
+         return out;
     }
     public void usar(String stop)
     {
@@ -122,7 +124,8 @@ public abstract class Core
         while(!cadena.equals(stop))
         {
             cadena =teclado.nextLine();
-            usar_(cadena);            
+            System.out.println("Exce:> "+usar_(cadena));
+                        
         }
     }
     public void cerrar()

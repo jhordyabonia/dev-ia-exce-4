@@ -5,10 +5,15 @@
  */
 package GUI;
 
+import exce4.Core;
+import exce4.Generador;
 import exce4.ManagerCores;
+import exce4.WordNormalizer;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.encog.neural.networks.BasicNetwork;
 
 /**
  *
@@ -49,6 +54,11 @@ public class Manager extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        list_objects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                list_objectsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(list_objects);
 
         btn_crear.setText("Crear");
@@ -60,6 +70,11 @@ public class Manager extends javax.swing.JPanel {
 
         btn_entrenar.setText("Entrenar");
         btn_entrenar.setEnabled(false);
+        btn_entrenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_entrenarActionPerformed(evt);
+            }
+        });
 
         field_entrenar.setEnabled(false);
 
@@ -73,6 +88,11 @@ public class Manager extends javax.swing.JPanel {
 
         btn_guardar.setText("Guardar");
         btn_guardar.setEnabled(false);
+        btn_guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarActionPerformed(evt);
+            }
+        });
 
         result_test.setEditable(false);
         result_test.setColumns(20);
@@ -136,12 +156,63 @@ public class Manager extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crearActionPerformed
-        // TODO add your handling code here:
+        if(type==TYPES.GENERADOR)
+         manager.add(field_crear.getText(),new Generador());
+        else
+         manager.add(field_crear.getText(),new WordNormalizer());
+            
+        field_crear.setText("");
+        setListObjets();
+        
     }//GEN-LAST:event_btn_crearActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
-        // TODO add your handling code here:
+        manager.remove();
+        setListObjets();
     }//GEN-LAST:event_btn_eliminarActionPerformed
+
+    private void list_objectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_list_objectsMouseClicked
+            btn_guardar.setEnabled(true);
+            btn_eliminar.setEnabled(true);
+            btn_entrenar.setEnabled(true);
+            field_entrenar.setEnabled(true);
+            btn_testear.setEnabled(true);
+            manager.set(list_objects.getSelectedIndex());
+    }//GEN-LAST:event_list_objectsMouseClicked
+
+    private void btn_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarActionPerformed
+     ((Core)manager.get()).saveMemory((String) list_objects.getSelectedValue());
+    }//GEN-LAST:event_btn_guardarActionPerformed
+
+    private void btn_entrenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrenarActionPerformed
+       String[] tmp= field_entrenar.getText().split(",");
+       if(type==TYPES.NORMALIZADOR)
+       {
+           try {               
+                if(tmp.length>3){}
+               ((WordNormalizer) manager.get()).loadWords(Integer.parseInt(tmp[0]), tmp[1]);
+               ((WordNormalizer) manager.get()).entrenar(Double.parseDouble(tmp[2]));
+           } catch (SQLException ex) 
+           {             
+                javax.swing.JOptionPane.showMessageDialog(this, "Syntaxis  sql invalida:\n "
+                + "Ej:\n\"select * from exce.palabras where 'id'<5\"", "Error",
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+           }
+       }
+       else
+       {
+           if(tmp.length>3)
+                {
+                    ((Core)manager.get()).cargarArchivo(tmp[0], tmp[1],tmp[2]);
+                    ((Core)manager.get()).entrenar(Double.parseDouble(tmp[3]));
+                }else
+                {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Syntaxis invalida:\n "
+                    + "Ej:\nRuta/completa/archvivo,in,out,level_error", "Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+                }           
+       }
+    }//GEN-LAST:event_btn_entrenarActionPerformed
 
     public  javax.swing.JButton get_btn_testear(){return btn_testear;}
     public  javax.swing.JButton get_btn_guardar(){return btn_guardar;}
@@ -172,8 +243,15 @@ public class Manager extends javax.swing.JPanel {
             Logger.getLogger(Manager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void setType(TYPES t)
+    {
+        type=t;
+    }
+    
     //variables declaration  user
     private ManagerCores manager;    
+    public static enum TYPES{GENERADOR,NORMALIZADOR};
+    private TYPES type=TYPES.GENERADOR;
     // End of variables declaration  user
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

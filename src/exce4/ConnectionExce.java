@@ -6,7 +6,6 @@
 package exce4;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -51,7 +50,19 @@ public class ConnectionExce
             if(conexion==null){return;}
             
             Statement s = conexion.createStatement();
-            rs = s.executeQuery (q);
+           rs = s.executeQuery(q);           
+                   
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionExce.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } public void queryInsert(String q)
+    {        
+        try
+        {           
+            if(conexion==null){return;}
+            
+            Statement s = conexion.createStatement();
+            s.execute(q);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionExce.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -66,4 +77,12 @@ public class ConnectionExce
             Logger.getLogger(ConnectionExce.class.getName()).log(Level.SEVERE, null, ex);
         }
     }       
+
+    boolean connected() 
+    {
+        try {
+            return !conexion.isClosed();
+        } catch (SQLException ex) {
+           return false;}
+    }
 }

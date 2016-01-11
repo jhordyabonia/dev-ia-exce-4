@@ -22,9 +22,22 @@ public class ManagerCores extends ArrayList
 {
     private ArrayList names =new ArrayList();
     private final String name_file;
+    private int index_selected=0;
     public ManagerCores(String name)
     {
         name_file=name;
+    }
+    public void remove()
+    {
+        remove(index_selected);
+    }
+    public Object get()
+    {
+        return get(index_selected);
+    }
+    public void set(int index_select)
+    {
+     index_selected=index_select;   
     }
     public String getName(int index)
     {
@@ -50,7 +63,13 @@ public class ManagerCores extends ArrayList
     public boolean add(String name,Object o)
     {
         names.add(name);
-        return super.add(o);
+        boolean tmp= super.add(o);
+        try {
+            guardar();
+        } catch (IOException ex) {
+            Logger.getLogger(ManagerCores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return tmp;
     }
     public void cargar()throws FileNotFoundException, IOException 
     {        

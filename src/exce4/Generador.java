@@ -6,6 +6,10 @@
 package exce4;
 
 import static exce4.Language.completar;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
@@ -16,8 +20,7 @@ import org.encog.neural.networks.layers.BasicLayer;
  */
 public class Generador extends Core
 {
-    public Generador()
-    {}
+    
     @Override
     public BasicNetwork make()
     {
@@ -55,4 +58,5 @@ public class Generador extends Core
         completar("CRISTO JESUS"),completar("JHORDY")}; 
         return out;
     }
+   
 }
